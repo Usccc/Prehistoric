@@ -2,6 +2,8 @@ package com.wiyuka.prehistoric;
 
 import com.mojang.logging.LogUtils;
 
+import com.wiyuka.prehistoric.config.ModConfig;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -30,7 +32,7 @@ public class Util {
         for (String message : messages) {
             Method infoMethod = loggerClass.getMethod("info", String.class);
             infoMethod.invoke(logger, message);
-            if (random.nextDouble(0.0, 1.0) > 0.95)
+            if (ModConfig.COMMON.yesGc.get() && random.nextDouble(0.0, 1.0) > 0.95)
                 System.gc();
         }
         Method infoMethod = loggerClass.getMethod("info", String.class);
