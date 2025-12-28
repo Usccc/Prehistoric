@@ -3,26 +3,26 @@
   "minVersion": "0.8",
   "package": "com.wiyuka.prehistoric.mixin",
   "compatibilityLevel": "JAVA_21",
-
   "mixins": [
     "ImprovedNoiseMixin",
     "MinecraftMixin",
+    "BlockBreakMixin",
     "BlockMixin",
+    "LevelMixin",
     "EntityMixin",
     "ExplosionMixin",
     "HopperBlockEntityMixin",
-    "LevelMixin",
     "LogUtilsMixin",
-    "MinecraftMixin",
     "MthMixin",
     "PacketEncoderMixin",
     "StructureBlockEntityMixin"
   ],
   "client": [
+
     "FrustumMixin",
     "GameRendererMixin",
     "LevelRendererMixin",
-    "GameRendererMixin",
+    "MixinGeometricOversaturation",
     "RenderMixin"
   ],
   "injectors": {

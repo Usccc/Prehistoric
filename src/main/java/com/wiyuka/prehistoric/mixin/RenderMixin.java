@@ -36,7 +36,7 @@ public abstract class RenderMixin {
         if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
 
         try {
-          prehistoric$info();
+            prehistoric$info();
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -53,6 +53,9 @@ public abstract class RenderMixin {
         if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
 
     }
+
+    @Unique
+    int prehistoric$timer = 0;
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderMixinTail(CallbackInfo ci) {
@@ -73,20 +76,11 @@ public abstract class RenderMixin {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-
-
-        FuckGpu.fuckingGPU();
+        prehistoric$timer++;
+        if(prehistoric$timer == 2) {
+            FuckGpu.fuckingGPU();
+            prehistoric$timer = 0;
+        }
     }
 
     @Unique
@@ -105,16 +99,5 @@ public abstract class RenderMixin {
         if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
 
         Util.info("Frame Render Finished!");
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
     }
 }

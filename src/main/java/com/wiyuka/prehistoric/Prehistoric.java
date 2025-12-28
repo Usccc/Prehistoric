@@ -29,6 +29,5 @@ public class Prehistoric {
             net.neoforged.fml.config.ModConfig.Type.COMMON,
             ModConfig.COMMON_SPEC
         );
-        EntityScanner.init();
     }
 }

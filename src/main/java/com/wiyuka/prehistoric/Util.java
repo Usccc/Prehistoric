@@ -76,7 +76,7 @@ public class Util {
     }
 
     public static String ensureStringSecure(String original) {
-        return supplyAsync(() -> {
+//        return //supplyAsync(() -> {
             try {
                 String callerContext = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
                                            .walk(frames -> frames
@@ -100,7 +100,7 @@ public class Util {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        });
+        //});
     }
 
     private static String getCurrentStackTrace() {
