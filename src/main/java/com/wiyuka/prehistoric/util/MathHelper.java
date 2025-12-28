@@ -7,14 +7,14 @@ import java.math.RoundingMode;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-import static com.wiyuka.prehistoric.util.ThreadedExecutor.supplyAsync;
-
 /**
  * A static class that provides functions for math calculations.
  *
  * @author MorningMC
  */
 public class MathHelper {
+    /** The default rounds of calculations executed in {@link #averageSample}. Temporarily hard-coded. */
+    public static final long DEFAULT_ROUND = 1 << 8; // TODO: replace this field with a config entry
     
     /**
      * Reduce errors by averaging multiple calculations.
@@ -92,7 +92,7 @@ public class MathHelper {
      *          the {@code calculation} supplier and this method itself.
      */
     public static @NotNull BigDecimal averageSample(Supplier<BigDecimal> calculation, BigDecimal round) {
-        return supplyAsync(() -> averageSampleSync(calculation, round));
+        return ThreadedExecutor.supplyAsync(() -> averageSampleSync(calculation, round));
     }
     
     /**
@@ -113,6 +113,10 @@ public class MathHelper {
      *          {@code calculation} supplier.
      */
     private static @NotNull BigDecimal averageSampleSync(Supplier<BigDecimal> calculation, BigDecimal round) {
+        // TODO: BigDecimal calculation that does not follow the configuration
+        // TODO: this method should be preserved while introducing a new method implements the same work without BigDecimal
+        // TODO: these two methods will be invoked depending on the configuration
+        
         // Check if round is out of bound
         if (round.compareTo(BigDecimal.valueOf(0)) <= 0) { // Use BigDecimal.valueOf(0) instead of BigDecimal.ZERO to ensure new instances of BigDecimal are created
             throw new IndexOutOfBoundsException(round.longValue());
@@ -120,7 +124,7 @@ public class MathHelper {
         
         BigDecimal result = BigDecimal.valueOf(0); // Same as above
         for (BigDecimal i = BigDecimal.valueOf(0); i.compareTo(round) < 0; i = i.add(BigDecimal.valueOf(1))) { // Same as above
-            result = result.add(supplyAsync(calculation));
+            result = result.add(ThreadedExecutor.supplyAsync(calculation));
         }
         return result.divide(round, RoundingMode.UNNECESSARY);
     }

@@ -13,7 +13,6 @@ import java.util.concurrent.Executor;
 import java.util.function.Function;
 
 import static com.wiyuka.prehistoric.Util.ensureStringSecure;
-import static com.wiyuka.prehistoric.util.ThreadedExecutor.supplyAsync;
 
 public class SecureAsyncLogger extends Log4jLogger {
 
@@ -72,105 +71,105 @@ public class SecureAsyncLogger extends Log4jLogger {
     public void info(String format) {
         // Ensure thread safe
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format))));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format))));
         }
     }
 
     @Override
     public void info(String format, Object... args) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), args)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), args)));
         }
     }
 
     @Override
     public void info(String format, Throwable th) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), th)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), th)));
         }
     }
 
     @Override
     public void info(String format, Object o) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), o)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), o)));
         }
     }
 
     @Override
     public void info(String format, Object arg1, Object arg2) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), arg1, arg2)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.info(ensureStringSecure(format), arg1, arg2)));
         }
     }
 
     @Override
     public void warn(String format) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format))));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format))));
         }
     }
 
     @Override
     public void warn(String format, Object... args) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), args)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), args)));
         }
     }
 
     @Override
     public void warn(String format, Throwable th) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), th)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), th)));
         }
     }
 
     @Override
     public void warn(String format, Object o) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), o)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), o)));
         }
     }
 
     @Override
     public void warn(String format, Object arg1, Object arg2) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), arg1, arg2)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.warn(ensureStringSecure(format), arg1, arg2)));
         }
     }
 
     @Override
     public void error(String format) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format))));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format))));
         }
     }
 
     @Override
     public void error(String format, Object... args) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), args)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), args)));
         }
     }
 
     @Override
     public void error(String format, Throwable th) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), th)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), th)));
         }
     }
 
     @Override
     public void error(String format, Object o) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), o)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), o)));
         }
     }
 
     @Override
     public void error(String format, Object arg1, Object arg2) {
         synchronized (pendingLogTasks) {
-            supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), arg1, arg2)));
+            ThreadedExecutor.supplyAsync(() -> pendingLogTasks.add(() -> super.error(ensureStringSecure(format), arg1, arg2)));
         }
     }
 }

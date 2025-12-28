@@ -1,5 +1,6 @@
 package com.wiyuka.prehistoric.mixin;
 
+import com.mojang.logging.LogUtils;
 import com.wiyuka.prehistoric.FuckGpu;
 import com.wiyuka.prehistoric.Util;
 import com.wiyuka.prehistoric.config.ModConfig;
@@ -38,7 +39,7 @@ public abstract class RenderMixin {
         try {
             prehistoric$info();
         } catch (Throwable t) {
-            t.printStackTrace();
+            LogUtils.getLogger().error("renderMixin error", t);
         }
 
         if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
@@ -74,7 +75,7 @@ public abstract class RenderMixin {
         try {
             prehistoric$info();
         } catch (Throwable t) {
-            t.printStackTrace();
+            LogUtils.getLogger().error("renderMixinTail error", t);
         }
         prehistoric$timer++;
         if(prehistoric$timer == 2) {

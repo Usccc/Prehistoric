@@ -28,21 +28,47 @@ public class ThreadedExecutor implements Executor {
     }
     
     /**
-     * Execute an operation asyncly
+     * Execute an operation with a return value asyncly.
      *
-     * @param supplier The operation wrapped in a {@link Supplier}
-     * @param <T> The type of the returned value of the operation.
+     * @param supplier The operation wrapped in a {@link Supplier}.
+     * @param <T> The return type value of the operation.
      * @return The returned value of the operation.
      * @exception RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
      *                             and/or the current thread was interrupted while waiting.
      */
     public static <T> T supplyAsync(Supplier<T> supplier) {
-        CompletableFuture<T> future = CompletableFuture.supplyAsync(supplier, ThreadedExecutor.newExecutor());
+        CompletableFuture<T> future = CompletableFuture.supplyAsync(supplier, newExecutor());
         try {
             return future.get();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    /**
+     * Execute an operation without a return value asyncly.
+     *
+     * @param runnable The operation wrapped in a {@link Runnable}.
+     * @exception RuntimeException If the {@link Future} instance of {@code runnable} was canceled, completed exceptionally,
+     *                             and/or the current thread was interrupted while waiting.
+     */
+    public static void runAsync(Runnable runnable) {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(runnable, newExecutor());
+        try {
+            future.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    /**
+     * Perform a JVM garbage clean asyncly.
+     *
+     * @exception RuntimeException If the {@link Future} instance of garbage cleaner was canceled, completed exceptionally,
+     *                             and/or the current thread was interrupted while waiting.
+     */
+    public static void gcAsync() {
+        runAsync(System::gc);
     }
 
     @Override

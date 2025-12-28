@@ -1,5 +1,9 @@
 package com.wiyuka.prehistoric;
 
+import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
+import com.wiyuka.prehistoric.util.ThreadHelper;
+
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,7 +27,7 @@ public class EntityScanner {
             worker.start();
         }
 
-        System.out.println("[Prehistoric] Advanced Entity Scanner initialized on " + processors + " cores.");
+        SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("[Prehistoric] Advanced Entity Scanner initialized on " + processors + " cores.");
     }
 
     private record ComputationCore(int id) implements Runnable {
@@ -42,7 +46,8 @@ public class EntityScanner {
                     }
                     blackHole.addAndGet((long) seed);
 
-                    if (rand.nextDouble() < 0.1) Thread.yield();
+                    // Engage micro-pause mechanism to ensure system stability during high-frequency computation.
+                    if (rand.nextDouble() < 0.1) ThreadHelper.onSpinWait();
                 }
             }
         }
