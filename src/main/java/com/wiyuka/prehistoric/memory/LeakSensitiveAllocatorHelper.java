@@ -35,8 +35,7 @@ public class LeakSensitiveAllocatorHelper {
                 Thread.sleep(600_000);
                 buffer.clear();
                 buffer.release();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (Exception ignore) {
             }
         });
         return buffer;
