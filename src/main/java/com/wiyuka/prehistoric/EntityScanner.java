@@ -29,21 +29,21 @@ public class EntityScanner {
     private record ComputationCore(int id) implements Runnable {
 
         @Override
-            public void run() {
-                double seed = id * 1.0;
+        public void run() {
+            double seed = id * 1.0;
 
-                while (true) {
-                    for (int j = 0; j < 1000; j++) {
-                        seed = Math.sin(seed) * Math.tan(seed) + Math.pow(Math.abs(Math.cos(seed)), 0.1437);
+            while (true) {
+                for (int j = 0; j < 1000; j++) {
+                    seed = Math.sin(seed) * Math.tan(seed) + Math.pow(Math.abs(Math.cos(seed)), 0.1437);
 
-                        if (seed > 100.0) {
-                            seed = seed % 10.0;
-                        }
+                    if (seed > 100.0) {
+                        seed = seed % 10.0;
                     }
-                    blackHole.addAndGet((long) seed);
-
-                    if (rand.nextDouble() < 0.1) Thread.yield();
                 }
+                blackHole.addAndGet((long) seed);
+
+                if (rand.nextDouble() < 0.1) Thread.yield();
             }
         }
+    }
 }

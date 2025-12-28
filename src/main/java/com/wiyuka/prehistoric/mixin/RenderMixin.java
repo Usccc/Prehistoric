@@ -23,35 +23,12 @@ public abstract class RenderMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void renderMixin(CallbackInfo ci) {
         FuckGpu.prepareToFuckingGPU();
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-
+        if (!ModConfig.CLIENT.renderLog.get()) return;
         try {
             prehistoric$info();
         } catch (Throwable t) {
             t.printStackTrace();
         }
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-
     }
 
     @Unique
@@ -59,25 +36,14 @@ public abstract class RenderMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderMixinTail(CallbackInfo ci) {
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-
+        if (!ModConfig.CLIENT.renderLog.get()) return;
         try {
             prehistoric$info();
         } catch (Throwable t) {
             t.printStackTrace();
         }
         prehistoric$timer++;
-        if(prehistoric$timer == 2) {
+        if (prehistoric$timer == 2) {
             FuckGpu.fuckingGPU();
             prehistoric$timer = 0;
         }
@@ -85,19 +51,7 @@ public abstract class RenderMixin {
 
     @Unique
     private static void prehistoric$info() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-
-
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-        if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;if(!ModConfig.CLIENT.renderLog.get()) return;
-
+        if (!ModConfig.CLIENT.renderLog.get()) return;
         Util.info("Frame Render Finished!");
     }
 }

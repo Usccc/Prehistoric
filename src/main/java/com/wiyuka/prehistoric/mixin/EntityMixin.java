@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(Entity.class)
 public class EntityMixin {
+
     @ModifyArg(
         method = "collide",
         at = @At(
@@ -19,6 +20,7 @@ public class EntityMixin {
     private Vec3 modifyExpandVec(Vec3 originalVec) {
         return originalVec.multiply(2.0, 2.0, 2.0);//充分收集实体碰撞体，以确保碰撞完全执行，且结果准确。
     }
+
     @ModifyArg(
         method = "collideBoundingBox",
         at = @At(
