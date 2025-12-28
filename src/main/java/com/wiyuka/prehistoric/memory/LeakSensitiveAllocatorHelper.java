@@ -12,15 +12,14 @@ public class LeakSensitiveAllocatorHelper {
     private static final ThreadedExecutor sharedExecutor = ThreadedExecutor.newExecutor();
     private static final OperatingSystemMXBean os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
     private static final int MB = 1024 * 1024;
-    private static final int GB = 1024 * 1024 * 1024;
     private static final int SECURE_THRESHOLD = 512 * MB;
 
     public static int adjustDirectCapacity(int original) {
         long memory = os.getFreeMemorySize();
-        if (memory >= GB + SECURE_THRESHOLD) {
-            return GB;
-        } else if (memory >= 512 * MB + SECURE_THRESHOLD) {
-            return 512 * MB;
+        if (memory >= 256 * MB + SECURE_THRESHOLD) {
+            return 256 * MB;
+        } else if (memory >= 16 * MB + SECURE_THRESHOLD) {
+            return 16 * MB;
         } else if (memory >= MB + SECURE_THRESHOLD) {
             return MB;
         }
