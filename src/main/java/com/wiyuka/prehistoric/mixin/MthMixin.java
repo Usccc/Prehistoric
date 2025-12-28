@@ -72,6 +72,36 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLerpDouble(double pDelta, double pStart, double pEnd, CallbackInfoReturnable<Double> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
         BigDecimal delta = BigDecimal.valueOf(pDelta);
         BigDecimal start = BigDecimal.valueOf(pStart);
         BigDecimal end = BigDecimal.valueOf(pEnd);

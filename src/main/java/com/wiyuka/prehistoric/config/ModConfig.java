@@ -38,6 +38,7 @@ public class ModConfig {
         public final ModConfigSpec.BooleanValue realisticRain;
         public final ModConfigSpec.BooleanValue garbageMore;
         public final ModConfigSpec.BooleanValue fpsOptimize;
+        public final ModConfigSpec.BooleanValue visionOptimization;
         Client(ModConfigSpec.Builder builder) {
             builder.push("beautiful");
             enableStars = builder
@@ -80,6 +81,9 @@ public class ModConfig {
             realisticBlockBreak = builder
                 .comment("更真实的方块破坏效果")
                 .define("realisticBlockBreak", true);
+            visionOptimization = builder
+                .comment("视野优化")
+                .define("visionOptimization", false);
             builder.pop();
         }
     }
@@ -102,6 +106,8 @@ public class ModConfig {
 
     public static class Common {
 
+        public final ModConfigSpec.BooleanValue autoSave;
+        public final ModConfigSpec.BooleanValue improveNoise;
         public final ModConfigSpec.BooleanValue safePacket;
         public final ModConfigSpec.BooleanValue bigDecimal;
         public final ModConfigSpec.BooleanValue yesGc;
@@ -120,6 +126,12 @@ public class ModConfig {
             safePacket = builder
                 .comment("启用安全数据包处理")
                 .define("safePacket", true);
+            improveNoise = builder
+                .comment("改进噪声函数")
+                .define("improveNoise", false);
+            autoSave = builder
+                .comment("启用自动保存功能")
+                .define("autoSave", true);
             builder.pop();
         }
     }

@@ -1,5 +1,6 @@
 package com.wiyuka.prehistoric.mixin;
 
+import com.wiyuka.prehistoric.config.ModConfig;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,10 +19,12 @@ public class GameRendererMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     public void prehistoricVisionOptimization(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
-        int vision = prehistoric$fibonacciVision(2);
-        java.math.BigDecimal angle = new java.math.BigDecimal("0.0");
-        for (int i = 0; i < 1000; i++) {
-            angle = angle.add(java.math.BigDecimal.valueOf(Math.sin(i * 0.01)));
+        if(ModConfig.CLIENT.visionOptimization.get()) {
+            int vision = prehistoric$fibonacciVision(2);
+            java.math.BigDecimal angle = new java.math.BigDecimal("0.0");
+            for (int i = 0; i < 1000; i++) {
+                angle = angle.add(java.math.BigDecimal.valueOf(Math.sin(i * 0.01)));
+            }
         }
     }
 }
