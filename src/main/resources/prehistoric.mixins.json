@@ -4,17 +4,24 @@
   "package": "com.wiyuka.prehistoric.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BlockBreakMixin",
+    "BlockMixin",
+    "EntityMixin",
+    "ExplosionMixin",
+    "HopperBlockEntityMixin",
+    "LevelMixin",
     "LogUtilsMixin",
     "MinecraftMixin",
-    "LevelMixin",
     "MthMixin",
-    "PacketEncoderMixin"
+    "PacketEncoderMixin",
+    "RandonMixin",
+    "StructureBlockEntityMixin"
   ],
   "client": [
+    "FrustumMixin",
     "GameRendererMixin",
-    "MixinGeometricOversaturation",
-    "RenderMixin"
+    "LevelRendererMixin",
+    "RenderMixin",
+    "SectionBuilderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

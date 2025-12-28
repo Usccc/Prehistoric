@@ -1,8 +1,10 @@
 package com.wiyuka.prehistoric;
 
 import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.config.ModConfig;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
@@ -15,6 +17,17 @@ public class Prehistoric {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Prehistoric(IEventBus modEventBus, ModContainer modContainer) {
-//        EntityScanner.init();
+        modContainer.registerConfig(
+            net.neoforged.fml.config.ModConfig.Type.CLIENT,
+            ModConfig.CLIENT_SPEC
+        );
+        modContainer.registerConfig(
+            net.neoforged.fml.config.ModConfig.Type.SERVER,
+            ModConfig.SERVER_SPEC
+        );
+        modContainer.registerConfig(
+            net.neoforged.fml.config.ModConfig.Type.COMMON,
+            ModConfig.COMMON_SPEC
+        );
     }
 }

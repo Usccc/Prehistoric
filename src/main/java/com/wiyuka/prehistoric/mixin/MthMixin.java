@@ -1,7 +1,7 @@
 package com.wiyuka.prehistoric.mixin;
 
+import com.wiyuka.prehistoric.config.ModConfig;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,14 +17,53 @@ public class MthMixin {
     @Unique
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
-    @Unique
-    private static boolean prehistoric$inStaticInit = true;
+    @Inject(
+        method = "lerp(FFF)F",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private static void preLerpFloat(float pDelta, float pStart, float pEnd, CallbackInfoReturnable<Float> cir) {
 
-    static {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException ignored) {}
-        prehistoric$inStaticInit = false;
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+
+        //万无一失。
+
+        BigDecimal delta = BigDecimal.valueOf(pDelta);
+        BigDecimal start = BigDecimal.valueOf(pStart);
+        BigDecimal end = BigDecimal.valueOf(pEnd);
+
+        BigDecimal result = delta.multiply(end.subtract(start), MATH_CONTEXT)
+            .add(start, MATH_CONTEXT);
+
+        cir.setReturnValue(result.floatValue());
     }
 
     @Inject(
@@ -32,7 +71,37 @@ public class MthMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void preLerpDouble(double pDelta, double pStart, double pEnd, @NotNull CallbackInfoReturnable<Double> cir) {
+    private static void preLerpDouble(double pDelta, double pStart, double pEnd, CallbackInfoReturnable<Double> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
         BigDecimal delta = BigDecimal.valueOf(pDelta);
         BigDecimal start = BigDecimal.valueOf(pStart);
         BigDecimal end = BigDecimal.valueOf(pEnd);
@@ -57,6 +126,37 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLengthSquared2D(double pXDistance, double pYDistance, CallbackInfoReturnable<Double> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+
         BigDecimal x = BigDecimal.valueOf(pXDistance);
         BigDecimal y = BigDecimal.valueOf(pYDistance);
 
@@ -78,6 +178,37 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLengthSquared3D(double pXDistance, double pYDistance, double pZDistance, CallbackInfoReturnable<Double> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+
         BigDecimal x = BigDecimal.valueOf(pXDistance);
         BigDecimal y = BigDecimal.valueOf(pYDistance);
         BigDecimal z = BigDecimal.valueOf(pZDistance);
@@ -101,6 +232,37 @@ public class MthMixin {
         cancellable = true
     )
     private static void preNextFloat(net.minecraft.util.RandomSource pRandom, float pMinimum, float pMaximum, CallbackInfoReturnable<Float> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+
         if (pMinimum >= pMaximum) {
             cir.setReturnValue(pMinimum);
             return;
@@ -122,15 +284,33 @@ public class MthMixin {
 //            }
         }
 
-        cir.setReturnValue(result.floatValue());
-    }
-
+            cir.setReturnValue(result.floatValue());
+        }
+    /*
     @Inject(
         method = "nextDouble(Lnet/minecraft/util/RandomSource;DD)D",
         at = @At("HEAD"),
         cancellable = true
     )
     private static void preNextDouble(net.minecraft.util.RandomSource pRandom, double pMinimum, double pMaximum, CallbackInfoReturnable<Double> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        //        ╔════════════════════════════╗
+        //        ║       I N V A L I D        ║
+        //        ║        R E T U R N         ║
+        //        ║         I AM COOL!         ║
+        //        ╚════════════════════════════╝
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+
         if (pMinimum >= pMaximum) {
             cir.setReturnValue(pMinimum);
             return;
@@ -152,7 +332,8 @@ public class MthMixin {
 //            }
         }
 
-        cir.setReturnValue(result.doubleValue());
+            cir.setReturnValue(result.doubleValue());
+        }
     }
 
     @Inject(
@@ -161,6 +342,23 @@ public class MthMixin {
         cancellable = true
     )
     private static void preNormal(net.minecraft.util.RandomSource pRandom, float pMean, float pDeviation, CallbackInfoReturnable<Float> cir) {
+
+        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        //        ╔════════════════════════════╗
+        //        ║       I N V A L I D        ║
+        //        ║         R E T U R N        ║
+        //        ║     BIG DECIMAL DISABLED   ║
+        //        ╚════════════════════════════╝
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
+        if(!ModConfig.COMMON.bigDecimal.get()) return;
         double gaussian = pRandom.nextGaussian();
         BigDecimal gaussianBD = BigDecimal.valueOf(gaussian);
         BigDecimal deviation = BigDecimal.valueOf(pDeviation);
@@ -425,5 +623,5 @@ public class MthMixin {
         }
 
         cir.setReturnValue(result.floatValue());
-    }
+    }*///没时间了似乎有格式冲突问题谁修一下
 }
