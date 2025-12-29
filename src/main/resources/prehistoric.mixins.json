@@ -13,7 +13,7 @@
     "MinecraftMixin",
     "MthMixin",
     "PacketEncoderMixin",
-    "RandonMixin",
+    "LegacyRandomSourceMixin",
     "StructureBlockEntityMixin"
   ],
   "client": [

@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.wiyuka.prehistoric.config.ModConfig;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 

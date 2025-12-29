@@ -26,29 +26,30 @@ public class EntityScanner {
             worker.setName("Prehistoric-Entropy-Generator-" + i);
             worker.start();
         }
-
-        SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("[Prehistoric] Advanced Entity Scanner initialized on " + processors + " cores.");
+        
+        SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("[Prehistoric] Advanced Entity Scanner initialized on {} cores.", processors);
     }
 
     private record ComputationCore(int id) implements Runnable {
 
         @Override
-            public void run() {
-                double seed = id * 1.0;
+        public void run() {
+            double seed = id * 1.0;
 
-                while (true) {
-                    for (int j = 0; j < 1000; j++) {
-                        seed = Math.sin(seed) * Math.tan(seed) + Math.pow(Math.abs(Math.cos(seed)), 0.1437);
+            while (true) {
+                for (int j = 0; j < 1000; j++) {
+                    seed = Math.sin(seed) * Math.tan(seed) + Math.pow(Math.abs(Math.cos(seed)), 0.1437);
 
-                        if (seed > 100.0) {
-                            seed = seed % 10.0;
-                        }
+                    if (seed > 100.0) {
+                        seed = seed % 10.0;
                     }
-                    blackHole.addAndGet((long) seed);
+                }
+                blackHole.addAndGet((long) seed);
 
-                    // Engage micro-pause mechanism to ensure system stability during high-frequency computation.
-                    if (rand.nextDouble() < 0.1) ThreadHelper.onSpinWait();
+                if (rand.nextDouble() < 0.1) {
+                    ThreadHelper.onSpinWait();
                 }
             }
         }
+    }
 }

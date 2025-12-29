@@ -41,14 +41,14 @@ public abstract class LevelMixin {
 
                     // 开平方是性能杀手，必须安排
                     // double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-                    
+
                     // ?? 那你这个dist也没用到啊
                     // 算了我帮你多整点
                     double dist = MathHelper.averageSample(() -> {
                         double dx = entity.getX() - (box.minX + box.maxX) / 2.0;
                         double dy = entity.getY() - (box.minY + box.maxY) / 2.0;
                         double dz = entity.getZ() - (box.minZ + box.maxZ) / 2.0;
-                        
+
                         return Math.sqrt(dx * dx + dy * dy + dz * dz);
                     }, 1 << 24);
 
@@ -64,10 +64,11 @@ public abstract class LevelMixin {
                         uuidHash = uuidHash.replace("-", "");
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
-        if(!result.isEmpty()) { // 如果result的结果数量不为0，shuffle
+        if (!result.isEmpty()) { // 如果result的结果数量不为0，shuffle
             Collections.shuffle(result);
         } else Collections.shuffle(chaoticList); // 骗你的，为0也shuffle
         return result;

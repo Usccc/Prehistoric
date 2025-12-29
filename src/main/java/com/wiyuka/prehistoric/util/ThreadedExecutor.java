@@ -5,8 +5,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
-import java.util.concurrent.*;
-import java.util.function.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+import java.util.function.Supplier;
 
 public class ThreadedExecutor implements Executor {
     /** Whether allows async executions. Temporarily hard-coded. */
@@ -28,16 +30,16 @@ public class ThreadedExecutor implements Executor {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * Execute an operation with a return value asyncly. If {@link #ALLOW_ASYNC} is set to {@code false}, this action
      * will be ignored and execute {@code supplier} synchronously.
      *
      * @param supplier The operation wrapped in a {@link Supplier}.
-     * @param <T> The return type of the operation.
+     * @param <T>      The return type of the operation.
      * @return The returned value of the operation.
-     * @exception RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
-     *                             and/or the current thread was interrupted while waiting.
+     * @throws RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
+     *                          and/or the current thread was interrupted while waiting.
      */
     public static <T> T supplyAsync(Supplier<T> supplier) {
         if (!ALLOW_ASYNC) {
@@ -57,8 +59,8 @@ public class ThreadedExecutor implements Executor {
      * will be ignored and execute {@code supplier} synchronously.
      *
      * @param runnable The operation wrapped in a {@link Runnable}.
-     * @exception RuntimeException If the {@link Future} instance of {@code runnable} was canceled, completed exceptionally,
-     *                             and/or the current thread was interrupted while waiting.
+     * @throws RuntimeException If the {@link Future} instance of {@code runnable} was canceled, completed exceptionally,
+     *                          and/or the current thread was interrupted while waiting.
      */
     public static void runAsync(Runnable runnable) {
         if (!ALLOW_ASYNC) {

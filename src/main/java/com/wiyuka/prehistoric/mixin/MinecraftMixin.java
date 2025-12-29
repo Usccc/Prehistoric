@@ -16,6 +16,7 @@ import java.util.function.BooleanSupplier;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftMixin {
+
     @Unique
     private static final LinkedList<byte[]> MEMORY_POOL = new LinkedList<>();
 

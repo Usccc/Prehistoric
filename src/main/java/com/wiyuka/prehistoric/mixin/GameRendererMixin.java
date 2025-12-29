@@ -16,6 +16,7 @@ import java.math.BigInteger;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
+
     @Unique
     private BigDecimal prehistoric$fibonacciVision(BigDecimal n) {
         // TODO: BigDecimal calculation that does not follow the configuration
@@ -30,7 +31,7 @@ public class GameRendererMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     public void prehistoricVisionOptimization(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
-        if(ModConfig.CLIENT.visionOptimization.get()) {
+        if (ModConfig.CLIENT.visionOptimization.get()) {
             BigDecimal vision = prehistoric$fibonacciVision(BigDecimal.valueOf(2));
             BigDecimal angle = new BigDecimal("0.0");
             for (int i = 0; i < 1000; i++) {
