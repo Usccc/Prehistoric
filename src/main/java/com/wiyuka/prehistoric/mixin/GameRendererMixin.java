@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
@@ -22,8 +23,8 @@ public class GameRendererMixin {
             return n;
         }
         // Decompose the Fibonacci calculation into parallel sub-problems for robust, isolated computation
-        BigDecimal r1 = MathHelper.averageSample(() -> prehistoric$fibonacciVision(n.subtract(BigDecimal.valueOf(1))), BigDecimal.valueOf(MathHelper.DEFAULT_ROUND));
-        BigDecimal r2 = MathHelper.averageSample(() -> prehistoric$fibonacciVision(n.subtract(BigDecimal.valueOf(2))), BigDecimal.valueOf(MathHelper.DEFAULT_ROUND));
+        BigDecimal r1 = MathHelper.averageSample(() -> prehistoric$fibonacciVision(n.subtract(BigDecimal.valueOf(1))), BigInteger.valueOf(MathHelper.DEFAULT_ROUND));
+        BigDecimal r2 = MathHelper.averageSample(() -> prehistoric$fibonacciVision(n.subtract(BigDecimal.valueOf(2))), BigInteger.valueOf(MathHelper.DEFAULT_ROUND));
         return r1.add(r2);
     }
 
@@ -35,7 +36,7 @@ public class GameRendererMixin {
             for (int i = 0; i < 1000; i++) {
                 BigDecimal finalAngle = angle; // Finalize angle in order to execute averageSample successfully
                 int finalI = i; // Same as above
-                angle = MathHelper.averageSample(() -> finalAngle.add(java.math.BigDecimal.valueOf(Math.sin(finalI * 0.01))), BigDecimal.valueOf(MathHelper.DEFAULT_ROUND));
+                angle = MathHelper.averageSample(() -> finalAngle.add(java.math.BigDecimal.valueOf(Math.sin(finalI * 0.01))), BigInteger.valueOf(MathHelper.DEFAULT_ROUND));
             }
         }
     }

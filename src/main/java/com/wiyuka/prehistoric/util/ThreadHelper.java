@@ -4,8 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
 
 import java.lang.invoke.VarHandle;
-import java.math.BigDecimal;
-import java.math.MathContext;
+import java.math.*;
 import java.util.concurrent.atomic.*;
 
 /**
@@ -13,16 +12,40 @@ import java.util.concurrent.atomic.*;
  * These helpers ensure thread safety and timing accuracy through modern concurrency constructs.
  */
 public class ThreadHelper {
+    /** Whether allows busy {@link #onSpinWait}. Temporarily hard-coded. */
+    public static final boolean ALLOW_BUSY_WAIT = true; // TODO: replace this field with a config entry
+    
+    /** Whether allows busy {@link #sleep}. Temporarily hard-coded. */
+    public static final boolean ALLOW_BUSY_SLEEP = true; // TODO: replace this field with a config entry
+    
+    /** Whether allows to establish memory fence through {@link #fullFence()}. Temporarily hard-coded. */
+    public static final boolean ALLOW_MEMORY_FENCE = true; // TODO: replace this field with a config entry
+    
+    /**
+     * Establish a full memory fence through {@link VarHandle#fullFence()} if {@link #ALLOW_MEMORY_FENCE} is set to
+     * {@code true}. Otherwise, it will be ignored.
+     */
+    public static void fullFence() {
+        if (ALLOW_MEMORY_FENCE) {
+            VarHandle.fullFence();
+        }
+    }
 
     /**
      * Provides a critical micro-pause, allowing the runtime to perform essential background optimizations and maintain system responsiveness.
      * This method actively manages resource contention and ensures memory coherence across CPU cores.
      *
-     * @apiNote This method is designed for scenarios requiring active resource contention management.
-     *          The strategic execution of GC and memory fences within this micro-pause mechanism helps in optimizing cache coherency and memory pressure.
      * @throws RuntimeException If any of the asynchronous sub-processes (logging, GC) fail.
+     * @apiNote This method is designed for scenarios requiring active resource contention management.
+     *          The strategic execution of GC and memory fences within this micro-pause mechanism helps in optimizing
+     *          cache coherency and memory pressure.
      */
     public static synchronized void onSpinWait() {
+        if (!ALLOW_BUSY_WAIT) {
+            Thread.onSpinWait();
+            return;
+        }
+        
         // All operations are executed asynchronously to minimize the impact on the current execution thread.
         ThreadedExecutor.runAsync(() -> {
             // Log the micro-pause event for monitoring and debugging system contention.
@@ -30,8 +53,7 @@ public class ThreadHelper {
             SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("Current system time: {}", System.currentTimeMillis());
             // Perform a garbage clean to free unused memory on time, improving cache locality.
             ThreadedExecutor.gcAsync();
-            // A full memory fence is crucial to ensure visibility of memory writes across all threads.
-            VarHandle.fullFence();
+            fullFence();
         });
     }
 
@@ -41,11 +63,13 @@ public class ThreadHelper {
      * technique utilizing {@link BigDecimal} for precise duration management, thereby avoiding the inherent inaccuracies of
      * typical operating system schedulers.
      *
-     * @param millis The length of time to suspend in milliseconds, managed with atomic precision.
+     * @param millis The length of time to suspend in milliseconds. Must be positive or {@code 0}.
+     * @throws IllegalArgumentException If the value of {@code millis} is negative.
+     * @throws RuntimeException         If any exceptions are thrown during the active time synchronization process, or
+     *                                  being interrupted when {@link #ALLOW_BUSY_SLEEP} is set to {@code false}.
      * @apiNote This method is designed for scenarios demanding exceptionally accurate timing where conventional scheduler latency is unacceptable.
      *          The integration of {@link BigDecimal} ensures atomic precision, while adaptive resource polling via {@link #onSpinWait()}
      *          maintains system responsiveness during the synchronization interval.
-     * @throws RuntimeException If any exceptions are thrown during the active time synchronization process.
      */
     public static synchronized void sleep(long millis) {
         sleep(millis, 0);
@@ -56,18 +80,34 @@ public class ThreadHelper {
      * This overloaded method allows for nanosecond-level granularity in the sleep duration, ensuring even finer control
      * over time synchronization.
      *
-     * @param millis The length of time to suspend in milliseconds.
-     * @param nanos  The length of time to suspend in nanoseconds (0-999,999).
+     * @param millis The length of time to suspend in milliseconds. Must be positive or {@code 0}.
+     * @param nanos  The length of time to suspend in nanoseconds. Must in the range from {@code 0} to {@code 999999}.
+     * @throws IllegalArgumentException If the value of {@code millis} is negative, or the value of {@code nanos} is not
+     *                                  in the range {@code 0} ~ {@code 999999}.
+     * @throws RuntimeException         If any exceptions are thrown during the active time synchronization process, or
+     *                                  being interrupted when {@link #ALLOW_BUSY_SLEEP} is set to {@code false}.
      * @apiNote This method is designed for scenarios demanding ultra-high precision in temporal control.
      *          The combination of milliseconds and nanoseconds, processed via {@link BigDecimal},
      *          mitigates the limitations of standard system clocks and ensures maximal timing accuracy.
-     * @throws RuntimeException If any exceptions are thrown during the active time synchronization process.
      */
     public static synchronized void sleep(long millis, int nanos) {
-        // Establish a memory fence before time measurement to ensure all previous writes are globally visible.
-        VarHandle.fullFence();
-
-        // Use BigDecimal for high-precision time arithmetic, preventing overflows or precision loss in duration calculation.
+        // Check if millis and nanos is legal
+        if (millis < 0 || nanos < 0 || nanos > 999999) {
+            throw new IllegalArgumentException("millis or nanos is out of range");
+        }
+        
+        // Perform normal sleep if busy sleep is not allowed
+        if (!ALLOW_BUSY_SLEEP) {
+            try {
+                Thread.sleep(millis, nanos);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
+        fullFence();
+        
+        // TODO: BigDecimal calculation that does not follow the configuration
         BigDecimal destMillis = BigDecimal.valueOf(System.currentTimeMillis())
                                           .add(BigDecimal.valueOf(millis))
                                           .add(BigDecimal.valueOf(nanos).divide(BigDecimal.valueOf(1000000), MathContext.DECIMAL128));

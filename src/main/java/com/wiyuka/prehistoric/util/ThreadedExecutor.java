@@ -9,7 +9,9 @@ import java.util.concurrent.*;
 import java.util.function.*;
 
 public class ThreadedExecutor implements Executor {
-
+    /** Whether allows async executions. Temporarily hard-coded. */
+    public static final boolean ALLOW_ASYNC = true; // TODO: replace this field with a config entry
+    
     private final String name;
 
     @Contract(pure = true)
@@ -28,15 +30,20 @@ public class ThreadedExecutor implements Executor {
     }
     
     /**
-     * Execute an operation with a return value asyncly.
+     * Execute an operation with a return value asyncly. If {@link #ALLOW_ASYNC} is set to {@code false}, this action
+     * will be ignored and execute {@code supplier} synchronously.
      *
      * @param supplier The operation wrapped in a {@link Supplier}.
-     * @param <T> The return type value of the operation.
+     * @param <T> The return type of the operation.
      * @return The returned value of the operation.
      * @exception RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
      *                             and/or the current thread was interrupted while waiting.
      */
     public static <T> T supplyAsync(Supplier<T> supplier) {
+        if (!ALLOW_ASYNC) {
+            return supplier.get();
+        }
+        
         CompletableFuture<T> future = CompletableFuture.supplyAsync(supplier, newExecutor());
         try {
             return future.get();
@@ -46,13 +53,18 @@ public class ThreadedExecutor implements Executor {
     }
     
     /**
-     * Execute an operation without a return value asyncly.
+     * Execute an operation without a return value asyncly. If {@link #ALLOW_ASYNC} is set to {@code false}, this action
+     * will be ignored and execute {@code supplier} synchronously.
      *
      * @param runnable The operation wrapped in a {@link Runnable}.
      * @exception RuntimeException If the {@link Future} instance of {@code runnable} was canceled, completed exceptionally,
      *                             and/or the current thread was interrupted while waiting.
      */
     public static void runAsync(Runnable runnable) {
+        if (!ALLOW_ASYNC) {
+            runnable.run();
+        }
+        
         CompletableFuture<Void> future = CompletableFuture.runAsync(runnable, newExecutor());
         try {
             future.get();
@@ -62,7 +74,8 @@ public class ThreadedExecutor implements Executor {
     }
     
     /**
-     * Perform a JVM garbage clean asyncly.
+     * Runs the garbage collector in the JVM asyncly. If {@link #ALLOW_ASYNC} is set to {@code false}, this action will
+     * be ignored and starts the garbage collector synchronously.
      *
      * @exception RuntimeException If the {@link Future} instance of garbage cleaner was canceled, completed exceptionally,
      *                             and/or the current thread was interrupted while waiting.
