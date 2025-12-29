@@ -1,6 +1,7 @@
 package com.wiyuka.prehistoric.util;
 
 import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.config.ModConfig;
 import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
 
 import java.lang.invoke.VarHandle;
@@ -12,21 +13,13 @@ import java.util.concurrent.atomic.*;
  * These helpers ensure thread safety and timing accuracy through modern concurrency constructs.
  */
 public class ThreadHelper {
-    /** Whether allows busy {@link #onSpinWait}. Temporarily hard-coded. */
-    public static final boolean ALLOW_BUSY_WAIT = true; // TODO: replace this field with a config entry
-    
-    /** Whether allows busy {@link #sleep}. Temporarily hard-coded. */
-    public static final boolean ALLOW_BUSY_SLEEP = true; // TODO: replace this field with a config entry
-    
-    /** Whether allows to establish memory fence through {@link #fullFence()}. Temporarily hard-coded. */
-    public static final boolean ALLOW_MEMORY_FENCE = true; // TODO: replace this field with a config entry
     
     /**
-     * Establish a full memory fence through {@link VarHandle#fullFence()} if {@link #ALLOW_MEMORY_FENCE} is set to
-     * {@code true}. Otherwise, it will be ignored.
+     * Establish a full memory fence through {@link VarHandle#fullFence()} if {@code allowMemoryFence} configuration is
+     * set to {@code true}. Otherwise, it will be ignored.
      */
     public static void fullFence() {
-        if (ALLOW_MEMORY_FENCE) {
+        if (ModConfig.COMMON.allowMemoryFence.get()) {
             VarHandle.fullFence();
         }
     }
@@ -41,7 +34,7 @@ public class ThreadHelper {
      *          cache coherency and memory pressure.
      */
     public static synchronized void onSpinWait() {
-        if (!ALLOW_BUSY_WAIT) {
+        if (!ModConfig.COMMON.allowBusyWait.get()) {
             Thread.onSpinWait();
             return;
         }
@@ -66,7 +59,7 @@ public class ThreadHelper {
      * @param millis The length of time to suspend in milliseconds. Must be positive or {@code 0}.
      * @throws IllegalArgumentException If the value of {@code millis} is negative.
      * @throws RuntimeException         If any exceptions are thrown during the active time synchronization process, or
-     *                                  being interrupted when {@link #ALLOW_BUSY_SLEEP} is set to {@code false}.
+     *                                  being interrupted when {@code allowBusySleep} is set to {@code false}.
      * @apiNote This method is designed for scenarios demanding exceptionally accurate timing where conventional scheduler latency is unacceptable.
      *          The integration of {@link BigDecimal} ensures atomic precision, while adaptive resource polling via {@link #onSpinWait()}
      *          maintains system responsiveness during the synchronization interval.
@@ -85,7 +78,7 @@ public class ThreadHelper {
      * @throws IllegalArgumentException If the value of {@code millis} is negative, or the value of {@code nanos} is not
      *                                  in the range {@code 0} ~ {@code 999999}.
      * @throws RuntimeException         If any exceptions are thrown during the active time synchronization process, or
-     *                                  being interrupted when {@link #ALLOW_BUSY_SLEEP} is set to {@code false}.
+     *                                  being interrupted when {@code allowBusySleep} configuration is set to {@code false}.
      * @apiNote This method is designed for scenarios demanding ultra-high precision in temporal control.
      *          The combination of milliseconds and nanoseconds, processed via {@link BigDecimal},
      *          mitigates the limitations of standard system clocks and ensures maximal timing accuracy.
@@ -97,7 +90,7 @@ public class ThreadHelper {
         }
         
         // Perform normal sleep if busy sleep is not allowed
-        if (!ALLOW_BUSY_SLEEP) {
+        if (!ModConfig.COMMON.allowBusySleep.get()) {
             try {
                 Thread.sleep(millis, nanos);
             } catch (InterruptedException e) {

@@ -64,7 +64,7 @@ public class MthMixin {
             
             BigDecimal result = delta.multiply(end.subtract(start), MATH_CONTEXT).add(start, MATH_CONTEXT);
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -118,7 +118,7 @@ public class MthMixin {
             }
 
             return result.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -171,7 +171,7 @@ public class MthMixin {
             }
 
             return result.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -226,7 +226,7 @@ public class MthMixin {
             }
 
             return result.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -287,7 +287,7 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
     
     @Inject(
@@ -335,7 +335,7 @@ public class MthMixin {
             }
 
             return result.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -374,7 +374,7 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -408,7 +408,7 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -447,7 +447,7 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -498,7 +498,7 @@ public class MthMixin {
             }
 
             return result.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -525,7 +525,7 @@ public class MthMixin {
             }
 
             return guess.doubleValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -553,7 +553,7 @@ public class MthMixin {
             }
 
             return guess.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -585,7 +585,7 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 
     @Inject(
@@ -628,6 +628,6 @@ public class MthMixin {
             }
 
             return result.floatValue();
-        }, MathHelper.DEFAULT_ROUND));
+        }, ModConfig.COMMON.defaultRoundAveraged.get()));
     }
 }

@@ -98,18 +98,12 @@ A: This is to simulate the speed of light propagation and particle mechanics in 
 
 ## Known Issues
 
-* **The game may stop responding for a long time during world loading.**
-* Status: Won't Fix.
-
-
-* **Some systems may trigger the operating system's "Not Responding" prompt.**
-* Please ignore it. This is a normal part of the Prehistoric workflow.
-
-
-* **Poor compatibility with performance profiling tools (Profilers).**
-* This mod includes its own proprietary Prehistoric Profiler. Please do not use any other Profilers to analyze this mod.
-
-
+- **The game may stop responding for a long time during world loading.**
+  - Status: Won't Fix.
+- **Some systems may trigger the operating system's "Not Responding" prompt.**
+  - Please ignore it. This is a normal part of the Prehistoric workflow.
+- **Poor compatibility with performance profiling tools (Profilers).**
+  - This mod includes its own proprietary Prehistoric Profiler. Please do not use any other Profilers to analyze this mod.
 
 ## Contribution Guide
 

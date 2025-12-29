@@ -1,5 +1,6 @@
 package com.wiyuka.prehistoric.util;
 
+import com.wiyuka.prehistoric.config.ModConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.*;
@@ -14,11 +15,6 @@ import static com.wiyuka.prehistoric.util.ThreadedExecutor.supplyAsync;
  * @author MorningMC
  */
 public class MathHelper {
-    /** The default rounds of calculations executed in {@link #averageSample}. Temporarily hard-coded. */
-    public static final long DEFAULT_ROUND = 1 << 10; // TODO: replace this field with a config entry
-    
-    /** Whether allows {@link BigDecimal} calculations. Temporarily hard-coded. */
-    public static final boolean ALLOW_BIGINTEGER = true; // TODO: replace this field with a config entry
     
     /**
      * Reduce errors by averaging multiple calculations.
@@ -28,13 +24,13 @@ public class MathHelper {
      *                    This value must be positive. In this case, it is recommended to set a large value.
      * @return The averaged calculation result.
      * @throws RuntimeException If {@code round} is negative or zero, or if the {@link Future} instance of
-     *                          {@code calculation} supplier and/or{@link #averageSampleSync} was canceled, completed
+     *                          {@code calculation} supplier and/or {@link #averageSampleSync} was canceled, completed
      *                          exceptionally, and/or the current thread was interrupted while waiting.
      * @apiNote To deal with the heavy performance cost of {@link BigDecimal}, multiple async tasks are used to execute
      *          the {@code calculation} supplier and this method itself.
      */
     public static long averageSample(Supplier<Long> calculation, long round) {
-        if (ALLOW_BIGINTEGER) {
+        if (ModConfig.COMMON.bigDecimal.get()) {
             return averageSample(() -> BigDecimal.valueOf(calculation.get()), BigInteger.valueOf(round)).longValue();
         }
         return (long) averageSample(() -> (double) calculation.get(), round);
@@ -48,7 +44,7 @@ public class MathHelper {
      *                    This value must be positive. In this case, it is recommended to set a large value.
      * @return The averaged calculation result.
      * @throws RuntimeException If {@code round} is negative or zero, or if the {@link Future} instance of
-     *                          {@code calculation} supplier and/or{@link #averageSampleSync} was canceled, completed
+     *                          {@code calculation} supplier and/or {@link #averageSampleSync} was canceled, completed
      *                          exceptionally, and/or the current thread was interrupted while waiting.
      * @apiNote 1. Fractional {@code round} value will have the same effect as {@code (long) round}, as it will be cast
      *          to {@code long} or {@link BigDecimal} anyway during processing.
@@ -56,7 +52,7 @@ public class MathHelper {
      *          supplier and this method itself.
      */
     public static float averageSample(Supplier<Float> calculation, float round) {
-        if (ALLOW_BIGINTEGER) {
+        if (ModConfig.COMMON.bigDecimal.get()) {
             return averageSample(() -> BigDecimal.valueOf(calculation.get()), BigInteger.valueOf((long) round)).floatValue();
         }
         return (float) averageSample(() -> (double) calculation.get(), round);
@@ -70,7 +66,7 @@ public class MathHelper {
      *                    This value must be positive. In this case, it is recommended to set a large value.
      * @return The averaged calculation result.
      * @throws RuntimeException If {@code round} is negative or zero, or if the {@link Future} instance of
-     *                          {@code calculation} supplier and/or{@link #averageSampleSync} was canceled, completed
+     *                          {@code calculation} supplier and/or {@link #averageSampleSync} was canceled, completed
      *                          exceptionally, and/or the current thread was interrupted while waiting.
      * @apiNote 1. Fractional {@code round} value will have the same effect as {@code (long) round}, as it will be cast
      *          to {@code long} or {@link BigDecimal} anyway during processing.
@@ -78,7 +74,7 @@ public class MathHelper {
      *          supplier and this method itself.
      */
     public static double averageSample(Supplier<Double> calculation, double round) {
-        if (ALLOW_BIGINTEGER) {
+        if (ModConfig.COMMON.bigDecimal.get()) {
             return averageSample(() -> BigDecimal.valueOf(calculation.get()), BigInteger.valueOf((long) round)).doubleValue();
         }
         return supplyAsync(() -> averageSampleSync(calculation, (long) round));
@@ -86,7 +82,7 @@ public class MathHelper {
 
     /**
      * Reduce errors by averaging multiple calculations. Since the {@code calculation} returns a {@link BigDecimal},
-     * it is impossible to process it without {@link BigDecimal}, {@link #ALLOW_BIGINTEGER} is ignored.
+     * it is impossible to process it without {@link BigDecimal}, {@code bigDecimal} configuration is ignored.
      *
      * @param calculation The {@link Supplier} instance that contains the calculation. The calculation result must
      *                    be an instance of {@link BigDecimal}.
@@ -94,7 +90,7 @@ public class MathHelper {
      *                    This value must be positive. In this case, it is recommended to set a large value.
      * @return The averaged calculation result.
      * @throws RuntimeException If {@code round} is negative or zero, or if the {@link Future} instance of
-     *                          {@code calculation} supplier and/or{@link #averageSampleSync} was canceled, completed
+     *                          {@code calculation} supplier and/or {@link #averageSampleSync} was canceled, completed
      *                          exceptionally, and/or the current thread was interrupted while waiting.
      * @apiNote To deal with the heavy performance cost of {@link BigDecimal}, multiple async tasks are used to execute
      *          the {@code calculation} supplier and this method itself.
@@ -131,7 +127,7 @@ public class MathHelper {
     
     /**
      * Reduce errors by averaging multiple calculations. This is a synchronized version of {@link #averageSample}
-     * and should not be called from anywhere except {@link #averageSample}.
+     * using {@link BigDecimal} and should not be called from anywhere except {@link #averageSample}.
      *
      * @param calculation The {@link Supplier} instance that contains the calculation. The calculation result must
      *                    be an instance of {@link BigDecimal}.
