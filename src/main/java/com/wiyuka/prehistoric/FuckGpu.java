@@ -240,8 +240,6 @@ public class FuckGpu {
         
         GL43.glDispatchCompute(32, 32, 1);
         GL43.glMemoryBarrier(GL43.GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-        ThreadHelper.sleep(1);
-
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, previousTex0);
         GL13.glActiveTexture(GL13.GL_TEXTURE1);
