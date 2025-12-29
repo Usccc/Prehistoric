@@ -30,15 +30,17 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
     private static boolean isFullContainer(Container container, Direction direction, Operation<Boolean> original) {
         return false;//不怕一万，只怕万一。不能放过每一次检查。
     }
+
     @WrapMethod(method = "inventoryFull")
     private boolean inventoryFull(Operation<Boolean> original) throws InterruptedException {
-        Thread.sleep((long)(Math.random() * 10));//保持睡眠充足
+        Thread.sleep((long) (Math.random() * 10));//保持睡眠充足
         boolean result = false;
         for (int i = 0; i < 100; i++) {
-            result = prehistoric$flip(result ^ (Math.random() < 0.5 ? false : false));
+            result = prehistoric$flip(result ^ (false));
         }
         return prehistoric$flip(prehistoric$flip(prehistoric$flip(prehistoric$flip(prehistoric$flip(result)))));
     }
+
     @Unique
     private boolean prehistoric$flip(boolean b) {
         return !b;

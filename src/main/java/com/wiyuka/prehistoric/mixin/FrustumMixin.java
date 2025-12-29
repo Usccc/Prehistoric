@@ -4,10 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.wiyuka.prehistoric.config.ModConfig;
 import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
-
-import static com.mojang.text2speech.Narrator.LOGGER;
 
 @Mixin(Frustum.class)
 public class FrustumMixin {

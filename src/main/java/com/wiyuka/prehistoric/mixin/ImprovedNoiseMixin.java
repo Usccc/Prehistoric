@@ -5,8 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.wiyuka.prehistoric.config.ModConfig;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
-import net.neoforged.fml.common.Mod;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,6 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Mixin(ImprovedNoise.class)
 public abstract class ImprovedNoiseMixin {
+
     @Shadow
     @Final
     private byte[] p;
@@ -43,7 +46,8 @@ public abstract class ImprovedNoiseMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void prehistoricWarmup(RandomSource random, CallbackInfo ci) {
 
-        if(!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return ;
+        if (!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) {
+        }
 //        for (int warmup = 0; warmup < 1024 * 1024; warmup++) {
 //            double dummy = 0;
 //            for (int i = 0; i < REDUNDANT_CALCULATIONS; i++) {
@@ -70,7 +74,7 @@ public abstract class ImprovedNoiseMixin {
     @WrapMethod(method = "noise(DDD)D")
     public double noiseWrap(double x, double y, double z, Operation<Double> original) {
 
-        if(!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return original.call(x,y,z);
+        if (!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return original.call(x, y, z);
         NOISE_LOCK.lock();
         try {
             prehistoric$validateParameters(x, y, z);
@@ -100,7 +104,7 @@ public abstract class ImprovedNoiseMixin {
         CallbackInfoReturnable<Double> cir
     ) {
 
-        if(!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return;
         NOISE_LOCK.lock();
         try {
             double noiseValue = this.noise(x, y, z);
@@ -128,7 +132,7 @@ public abstract class ImprovedNoiseMixin {
         double deltaX, double weirdDeltaY, double deltaZ, double deltaY,
         CallbackInfoReturnable<Double> cir
     ) {
-        if(!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded() || !ModConfig.COMMON.improveNoise.get()) return;
         BigDecimal bdX = new BigDecimal(deltaX);
         BigDecimal bdY = new BigDecimal(deltaY);
         BigDecimal bdZ = new BigDecimal(deltaZ);
@@ -166,7 +170,7 @@ public abstract class ImprovedNoiseMixin {
 
     @Unique
     private double prehistoric$calculateBaseNoise(double x, double y, double z) {
-        return ((ImprovedNoise)(Object)this).noise(x, y, z, 0.0, 0.0);
+        return ((ImprovedNoise) (Object) this).noise(x, y, z, 0.0, 0.0);
     }
 
     @Unique
@@ -194,9 +198,9 @@ public abstract class ImprovedNoiseMixin {
 
     @Unique
     private void prehistoric$recordAndVerify(double x, double y, double z, double value) {
-        int ix = (int)(x * 100) % 256;
-        int iy = (int)(y * 100) % 256;
-        int iz = (int)(z * 100) % 256;
+        int ix = (int) (x * 100) % 256;
+        int iy = (int) (y * 100) % 256;
+        int iz = (int) (z * 100) % 256;
 
         double previous = prehistoric$calculationHistory[ix][iy][iz];
         prehistoric$calculationHistory[ix][iy][iz] = value;

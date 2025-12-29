@@ -39,6 +39,7 @@ public class ModConfig {
         public final ModConfigSpec.BooleanValue garbageMore;
         public final ModConfigSpec.BooleanValue fpsOptimize;
         public final ModConfigSpec.BooleanValue visionOptimization;
+
         Client(ModConfigSpec.Builder builder) {
             builder.push("beautiful");
             enableStars = builder
@@ -92,6 +93,7 @@ public class ModConfig {
 
         public final ModConfigSpec.BooleanValue enableStructureFix;
         public final ModConfigSpec.BooleanValue betterExplosion;
+
         Server(ModConfigSpec.Builder builder) {
             builder.push("all");
             betterExplosion = builder
@@ -112,6 +114,7 @@ public class ModConfig {
         public final ModConfigSpec.BooleanValue bigDecimal;
         public final ModConfigSpec.BooleanValue yesGc;
         public final ModConfigSpec.BooleanValue secureLogger;
+
         Common(ModConfigSpec.Builder builder) {
             builder.push("secureLogger");
             secureLogger = builder

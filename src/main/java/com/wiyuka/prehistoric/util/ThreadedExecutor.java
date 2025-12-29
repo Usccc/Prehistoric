@@ -5,8 +5,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
-import java.util.concurrent.*;
-import java.util.function.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+import java.util.function.Supplier;
 
 public class ThreadedExecutor implements Executor {
 
@@ -26,15 +28,15 @@ public class ThreadedExecutor implements Executor {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * Execute an operation asyncly
      *
      * @param supplier The operation wrapped in a {@link Supplier}
-     * @param <T> The type of the returned value of the operation.
+     * @param <T>      The type of the returned value of the operation.
      * @return The returned value of the operation.
-     * @exception RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
-     *                             and/or the current thread was interrupted while waiting.
+     * @throws RuntimeException If the {@link Future} instance of {@code supplier} was canceled, completed exceptionally,
+     *                          and/or the current thread was interrupted while waiting.
      */
     public static <T> T supplyAsync(Supplier<T> supplier) {
         CompletableFuture<T> future = CompletableFuture.supplyAsync(supplier, ThreadedExecutor.newExecutor());

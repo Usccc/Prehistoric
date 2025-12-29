@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
+
     @Unique
     private int prehistoric$fibonacciVision(int n) {
         if (n <= 1) return n;
@@ -19,7 +20,7 @@ public class GameRendererMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     public void prehistoricVisionOptimization(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
-        if(ModConfig.CLIENT.visionOptimization.get()) {
+        if (ModConfig.CLIENT.visionOptimization.get()) {
             int vision = prehistoric$fibonacciVision(2);
             java.math.BigDecimal angle = new java.math.BigDecimal("0.0");
             for (int i = 0; i < 1000; i++) {
