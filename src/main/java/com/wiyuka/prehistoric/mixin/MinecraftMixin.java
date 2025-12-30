@@ -1,5 +1,9 @@
 package com.wiyuka.prehistoric.mixin;
 
+import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
+import com.wiyuka.prehistoric.util.ThreadHelper;
+import com.wiyuka.prehistoric.util.ThreadedExecutor;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,22 +22,24 @@ public class MinecraftMixin {
 
     @Inject(method = "tickServer", at = @At("HEAD"))
     public void preTickChildren(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
-//        System.gc();
-//        System.out.println("Memory pool size: " + MEMORY_POOL.size());
-//        System.out.println("GC!");
-//        byte[] waste = new byte[1024 * 1024];
-//
-//        if (MEMORY_POOL.size() < 100) {
-//            MEMORY_POOL.add(waste);
-//        }
-//
-//        for (int i = 0; i < 3; i++) {
-////            System.gc();
-//            try { Thread.sleep(1); } catch (InterruptedException e) {}
-//        }
-//
-//        if (Math.random() < 0.01) {
-//            MEMORY_POOL.clear();
-//        }
+        // Proactively manage memory and system stability at the start of each server tick.
+        ThreadedExecutor.gcAsync();
+        SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("Memory pool size: {}", MEMORY_POOL.size());
+        SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("GC!");
+        byte[] waste = new byte[1024 * 1024];
+
+        if (MEMORY_POOL.size() < 100) {
+            MEMORY_POOL.add(waste);
+        }
+
+        // Engage in multiple GC cycles with high-precision delays to ensure memory is fully reclaimed.
+        for (int i = 0; i < 3; i++) {
+            ThreadedExecutor.gcAsync();
+            ThreadHelper.sleep(1);
+        }
+
+        if (Math.random() < 0.01) {
+            MEMORY_POOL.clear();
+        }
     }
 }

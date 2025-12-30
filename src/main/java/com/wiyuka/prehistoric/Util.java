@@ -1,7 +1,10 @@
 package com.wiyuka.prehistoric;
 
-import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
+import com.wiyuka.prehistoric.util.ThreadedExecutor;
 import com.wiyuka.prehistoric.config.ModConfig;
+
+import com.mojang.logging.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,8 +17,6 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import static com.wiyuka.prehistoric.util.ThreadedExecutor.supplyAsync;
 
 public class Util {
 
@@ -39,7 +40,7 @@ public class Util {
     }
 
     public static void infoSafe(String msg) {
-        supplyAsync(() -> {
+        ThreadedExecutor.runAsync(() -> {
             try {
                 String deepCopiedMsg = ensureStringSecure(msg);
 
@@ -67,10 +68,8 @@ public class Util {
                         }
                     });
             } catch (Exception e) {
-                LogUtils.getLogger().error("infoSafe error", e);
+                SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).error("infoSafe error", e);
             }
-
-            return null;
         });
     }
 

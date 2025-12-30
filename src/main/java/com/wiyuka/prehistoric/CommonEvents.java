@@ -7,7 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-import static com.wiyuka.prehistoric.util.ThreadedExecutor.supplyAsync;
+import static com.wiyuka.prehistoric.util.ThreadedExecutor.runAsync;
 
 @EventBusSubscriber
 public class CommonEvents {
@@ -18,9 +18,8 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void serverTick(ServerTickEvent.Post event) {
-        if (ModConfig.COMMON.autoSave.get())
-            if (++tickCount % 5 == 0) {
-                boolean flag = supplyAsync(() -> event.getServer().saveEverything(false, true, true)); // Do not supress log. LOG FLOOD!
-            }
+        if (ModConfig.COMMON.autoSave.get() || ++tickCount % 5 == 0) {
+            runAsync(() -> event.getServer().saveEverything(false, true, true)); // Do not supress log. LOG FLOOD!
+        }
     }
 }

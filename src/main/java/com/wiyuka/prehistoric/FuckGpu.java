@@ -1,5 +1,9 @@
 package com.wiyuka.prehistoric;
 
+import com.mojang.logging.LogUtils;
+import com.wiyuka.prehistoric.logging.SecureAsyncLogger;
+import com.wiyuka.prehistoric.util.ThreadHelper;
+
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
 
@@ -7,7 +11,6 @@ import java.nio.ByteBuffer;
 import java.util.Random;
 
 public class FuckGpu {
-
     public static final String SHIT_CODE = """
         #version 430 core
         precision highp float;
@@ -197,7 +200,7 @@ public class FuckGpu {
 
         if (GL20.glGetShaderi(shitShader, GL20.GL_COMPILE_STATUS) == GL20.GL_FALSE) {
             String infoLog = GL20.glGetShaderInfoLog(shitShader);
-            System.out.println("Shader compilation failed (as expected for this garbage): " + infoLog);
+            SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("Shader compilation failed (as expected for this garbage): " + infoLog);
         }
         initialized = true;
     }
@@ -214,22 +217,27 @@ public class FuckGpu {
         int previousTex2 = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 
         GL20.glUseProgram(program);
+        ThreadHelper.sleep(1);
 
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, garbageTextures[0]);
         GL20.glUniform1i(GL20.glGetUniformLocation(program, "idkThis"), 0);
-
+        ThreadHelper.sleep(1);
+        
         GL13.glActiveTexture(GL13.GL_TEXTURE1);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, garbageTextures[1]);
         GL20.glUniform1i(GL20.glGetUniformLocation(program, "anotherShit"), 1);
-
+        ThreadHelper.sleep(1);
+        
         GL13.glActiveTexture(GL13.GL_TEXTURE2);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, garbageTextures[2]);
         GL20.glUniform1i(GL20.glGetUniformLocation(program, "moreShit"), 2);
-
+        ThreadHelper.sleep(1);
+        
         GL42.glBindImageTexture(0, outputImages[0], 0, false, 0, GL20.GL_WRITE_ONLY, GL30.GL_RGBA32F);
         GL42.glBindImageTexture(1, outputImages[1], 0, false, 0, GL20.GL_WRITE_ONLY, GL30.GL_RGBA32F);
-
+        ThreadHelper.sleep(1);
+        
         GL43.glDispatchCompute(32, 32, 1);
         GL43.glMemoryBarrier(GL43.GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -238,7 +246,8 @@ public class FuckGpu {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, previousTex1);
         GL13.glActiveTexture(GL13.GL_TEXTURE2);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, previousTex2);
-
+        ThreadHelper.sleep(1);
+        
         GL13.glActiveTexture(previousActiveTexture);
         GL20.glUseProgram(previousProgram);
     }
