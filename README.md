@@ -1,7 +1,7 @@
 # 前古代优化
 **Prehistoric** 是一个专为 Minecraft 设计的开源渲染管线优化模组。
 
-Prehistoric 旨在通过先进的**Advanced Redundant Computation™**和动态阻塞算法，将现代硬件的性能还原至史前水平。它能够有效地将您原本不必要的 120+ FPS 稳定至极具电影质感的 20 SPF，为您带来原汁原味的早年代硬件体验。
+Prehistoric 旨在通过先进的**Advanced Redundant Computation™**和动态阻塞算法，将现代硬件的性能还原至史前水平。它能够有效地将您原本不必要的 120+ FPS 稳定至极具电影质感的 20 FPS⁻¹，为您带来原汁原味的早年代硬件体验。
 
 QQ交流群号: 1023713677
 
