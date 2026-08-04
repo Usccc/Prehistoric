@@ -73,7 +73,8 @@ public class CpuToIcu {
             if (i % 1000 == 0) {
                 long start = System.nanoTime();
                 while (System.nanoTime() - start < 1_000_000) {
-                    ThreadHelper.onSpinWait();
+                    //ThreadHelper.onSpinWait(); 
+                    Thread.onSpinWait(); // Use Thread.onSpinWait() to yield CPU without busy waiting
                 }
            }
         }

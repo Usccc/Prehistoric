@@ -26,7 +26,11 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLerpFloat(float pDelta, float pStart, float pEnd, CallbackInfoReturnable<Float> cir) {
-        if (!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(pStart + pDelta * (pEnd - pStart));
+            return;
+        }
+        if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
@@ -73,7 +77,11 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLerpDouble(double pDelta, double pStart, double pEnd, CallbackInfoReturnable<Double> cir) {
-        if (!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(pStart + pDelta * (pEnd - pStart));
+            return;
+        }
+        if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
@@ -127,7 +135,11 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLengthSquared2D(double pXDistance, double pYDistance, CallbackInfoReturnable<Double> cir) {
-        if (!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(pXDistance * pXDistance + pYDistance * pYDistance);
+            return;
+        }
+        if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
@@ -180,7 +192,11 @@ public class MthMixin {
         cancellable = true
     )
     private static void preLengthSquared3D(double pXDistance, double pYDistance, double pZDistance, CallbackInfoReturnable<Double> cir) {
-        if (!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(pXDistance * pXDistance + pYDistance * pYDistance + pZDistance * pZDistance);
+            return;
+        }
+        if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
@@ -235,8 +251,15 @@ public class MthMixin {
         cancellable = true
     )
     private static void preNextFloat(net.minecraft.util.RandomSource pRandom, float pMinimum, float pMaximum, CallbackInfoReturnable<Float> cir) {
-
-        if (!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            if (pMinimum >= pMaximum) {
+                cir.setReturnValue(pMinimum);
+                return;
+            }
+            cir.setReturnValue(pMinimum + pRandom.nextFloat() * (pMaximum - pMinimum));
+            return;
+        }
+        if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
         if (!ModConfig.COMMON.bigDecimal.get()) return;
@@ -296,8 +319,14 @@ public class MthMixin {
         cancellable = true
     )
     private static void preNextDouble(net.minecraft.util.RandomSource pRandom, double pMinimum, double pMaximum, CallbackInfoReturnable<Double> cir) {
-
-        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            if (pMinimum >= pMaximum) {
+                cir.setReturnValue(pMinimum);
+                return;
+            }
+            cir.setReturnValue(pMinimum + pRandom.nextDouble() * (pMaximum - pMinimum));
+            return;
+        }
         if(!ModConfig.COMMON.bigDecimal.get()) return;
         if(!ModConfig.COMMON.bigDecimal.get()) return;
         if(!ModConfig.COMMON.bigDecimal.get()) return;
@@ -344,7 +373,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preNormal(net.minecraft.util.RandomSource pRandom, float pMean, float pDeviation, CallbackInfoReturnable<Float> cir) {
-        if(!ModConfig.COMMON_SPEC.isLoaded()) return;
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue((float)(pMean + pDeviation * pRandom.nextGaussian()));
+            return;
+        }
         if(!ModConfig.COMMON.bigDecimal.get()) return;
         if(!ModConfig.COMMON.bigDecimal.get()) return;
         if(!ModConfig.COMMON.bigDecimal.get()) return;
@@ -383,6 +415,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preSin(float value, CallbackInfoReturnable<Float> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue((float)Math.sin(value));
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal x = BigDecimal.valueOf(value);
             BigDecimal result = BigDecimal.valueOf(0);
@@ -417,6 +453,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preCos(float value, CallbackInfoReturnable<Float> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue((float)Math.cos(value));
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal x = BigDecimal.valueOf(value);
             BigDecimal result = BigDecimal.valueOf(0);
@@ -456,6 +496,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preAtan2(double y, double x, CallbackInfoReturnable<Double> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(Math.atan2(y, x));
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal bdY = BigDecimal.valueOf(y);
             BigDecimal bdX = BigDecimal.valueOf(x);
@@ -507,6 +551,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preFastInvSqrt(double number, CallbackInfoReturnable<Double> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue(1.0 / Math.sqrt(number));
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal x = BigDecimal.valueOf(number);
             BigDecimal guess = BigDecimal.valueOf(1.0);
@@ -534,6 +582,10 @@ public class MthMixin {
         cancellable = true
     )
     private static void preInvSqrt(float number, CallbackInfoReturnable<Float> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            cir.setReturnValue((float)(1.0 / Math.sqrt(number)));
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal x = BigDecimal.valueOf(number);
             BigDecimal guess = BigDecimal.valueOf(1.0);
@@ -562,6 +614,14 @@ public class MthMixin {
         cancellable = true
     )
     private static void preClampFloat(float value, float min, float max, CallbackInfoReturnable<Float> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            if (Float.isNaN(value) || Float.isNaN(min) || Float.isNaN(max)) {
+                cir.setReturnValue(0.0f);
+                return;
+            }
+            cir.setReturnValue(Math.max(min, Math.min(max, value)));
+            return;
+        }
         if (Float.isNaN(value) || Float.isNaN(min) || Float.isNaN(max)) {
             cir.setReturnValue(0.0f);
             return;
@@ -594,6 +654,19 @@ public class MthMixin {
         cancellable = true
     )
     private static void preCatmullrom(float delta, float p0, float p1, float p2, float p3, CallbackInfoReturnable<Float> cir) {
+        if (!ModConfig.COMMON_SPEC.isLoaded()) {
+            float t = delta;
+            float t2 = t * t;
+            float t3 = t2 * t;
+            float result = 0.5f * (
+                2 * p1 +
+                (p2 - p0) * t +
+                (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 +
+                (3 * p1 - p0 - 3 * p2 + p3) * t3
+            );
+            cir.setReturnValue(result);
+            return;
+        }
         cir.setReturnValue(MathHelper.averageSample(() -> {
             BigDecimal t = BigDecimal.valueOf(delta);
             BigDecimal bdP0 = BigDecimal.valueOf(p0);
