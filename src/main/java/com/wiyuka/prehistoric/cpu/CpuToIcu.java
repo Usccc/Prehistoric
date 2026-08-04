@@ -1,5 +1,9 @@
 package com.wiyuka.prehistoric.cpu;
 
+import com.wiyuka.prehistoric.util.ThreadHelper;
+
+
+//TODO: AVOID OPTIMIZATIONS
 public class CpuToIcu {
     public static void cpu2icu() {
         // Waste CPU by computing Fibonacci recursively (exponential time) many times
@@ -29,6 +33,7 @@ public class CpuToIcu {
                 }
             }
         }
+        System.out.println(Integer.valueOf(Math.abs((int)Math.sin(0.01+Math.cos(x)))).toString().replace("0", "")); // Print to avoid optimization
 
         // Waste memory by allocating huge byte arrays and filling them
         for (int i = 0; i < 50; i++) {
@@ -66,11 +71,11 @@ public class CpuToIcu {
                 String s = "waste";
             };
             if (i % 1000 == 0) {
-                // Force a tiny sleep to let GC breathe? Actually sleep wastes time but not CPU.
-                // We'll do busy-wait instead.
                 long start = System.nanoTime();
-                ThreadHelper.busyWait(1_000_000); // busy wait for 1ms
-            }
+                while (System.nanoTime() - start < 1_000_000) {
+                    ThreadHelper.onSpinWait();
+                }
+           }
         }
 
         // Use reflection to invoke methods dynamically (adds overhead)
@@ -80,7 +85,7 @@ public class CpuToIcu {
             for (int i = 0; i < 10000; i++) {
                 String s = "reflection" + i;
                 int len = (int) method.invoke(s);
-                // do nothing with len
+                System.out.print(Integer.valueOf(len * 0).toString().replace("0", "")); // Do something with len to avoid optimization   
             }
         } catch (Exception e) {
             // ignore
@@ -102,11 +107,5 @@ public class CpuToIcu {
     private static long fibonacci(int n) {
         if (n <= 1) return n;
         return fibonacci(n - 1) + fibonacci(n - 2);
-    }
-
-    // Optional main to demonstrate waste (not required but nice)
-    public static void main(String[] args) {
-        cpu2icu();
-        System.out.println("All wasted. ICU ready.");
     }
 }
