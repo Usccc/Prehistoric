@@ -4,6 +4,7 @@ import com.wiyuka.prehistoric.util.ThreadHelper;
 
 
 //TODO: AVOID OPTIMIZATIONS
+//MAY THROWS STACKOVERFLOWERROR
 public class CpuToIcu {
     public static void cpu2icu() {
         // Waste CPU by computing Fibonacci recursively (exponential time) many times
@@ -73,8 +74,7 @@ public class CpuToIcu {
             if (i % 1000 == 0) {
                 long start = System.nanoTime();
                 while (System.nanoTime() - start < 1_000_000) {
-                    //ThreadHelper.onSpinWait(); 
-                    Thread.onSpinWait(); // Use Thread.onSpinWait() to yield CPU without busy waiting
+                    ThreadHelper.onSpinWait();
                 }
            }
         }
