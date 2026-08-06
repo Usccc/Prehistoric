@@ -42,7 +42,7 @@ public class ThreadHelper {
         
         // All operations are executed asynchronously to minimize the impact on the current execution thread.
         ThreadedExecutor.runAsync(() -> {
-            CpuToIcu.cpu2icu();
+            //CpuToIcu.cpu2icu();
             // Log the micro-pause event for monitoring and debugging system contention.
             SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("onSpinWait");
             SecureAsyncLogger.getSecureLogger(LogUtils.getLogger()).info("Current system time: {}", System.currentTimeMillis());
